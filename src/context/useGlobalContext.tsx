@@ -1,4 +1,4 @@
-// File: AppProvider.js
+
 import React, {
   createContext,
   ReactNode,
@@ -18,6 +18,7 @@ import {
 import { v4 } from "uuid";
 import { storage } from "../firebase/firebase";
 import { filterImagesByTag } from "../libs/getFilteredImages";
+
 
 type AppProviderProps = {
   children: ReactNode;
@@ -106,6 +107,8 @@ const AppProvider = ({ children }: AppProviderProps) => {
         setLoading(false);
       });
   };
+
+
 
   useEffect(() => {
     getGallery();
