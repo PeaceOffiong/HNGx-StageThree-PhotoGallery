@@ -80,14 +80,17 @@ const AppProvider = ({ children }: AppProviderProps) => {
     listAll(ImagesRef)
       .then((responds) => {
         const promises = responds.items.map((item) => {
+          // @ts-ignore
           const eachRef = ref(storage, item._location.path_);
           return getDownloadURL(item).then((url) => {
             return getMetadata(eachRef).then((metaData) => {
-              const tags = metaData?.customMetadata?.tags || [];
+              // @ts-ignore
+              const tags = metaData.customMetadata.tags;
               const imageData = {
                 url,
                 tags,
               };
+              
               imageDataArray.push(imageData);
             });
           });
@@ -140,6 +143,7 @@ const AppProvider = ({ children }: AppProviderProps) => {
               },
             };
 
+            // @ts-ignore
             updateMetadata(ImageRef, newMetadata)
               .then(() => {
                 console.log("Metadata updated successfully.");
@@ -147,6 +151,7 @@ const AppProvider = ({ children }: AppProviderProps) => {
               .then(() => {
                 getMetadata(ImageRef).then((metaData) => {
                   const tags = metaData?.customMetadata?.tags || [];
+                  // @ts-ignore
                   setImageList((prev) => [...prev, { url, tags }]);
                 });
               });
