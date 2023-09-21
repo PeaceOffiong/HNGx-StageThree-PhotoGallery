@@ -1,7 +1,4 @@
-/* src/index.css */
-/* @import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities"; */
+
 
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@1,9..40,500&family=Exo+2:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Allura&display=swap");
@@ -46,6 +43,7 @@ body {
   height: 400px;
   border: 5px dashed rgb(130, 184, 255);
   width: 70%;
+  background-color: rgb(245, 245, 245, 0.8);
 }
 
 button {
@@ -104,12 +102,14 @@ nav {
   flex-direction: column;
 }
 
-.middle{
-  height: 100%;
-}
 .middle {
   padding: 35px 0;
   width: 80%;
+  height: 100%;
+}
+
+ul{
+  width: full;
 }
 
  @media (max-width: 650px) {

@@ -5,7 +5,6 @@ import {ReactSortable} from "react-sortablejs";
 
 const Home: React.FC = () => {
   const { loading, imageList, setImageList } = useGlobalContext();
-  console.log(imageList);
   return (
     <main className="center">
       <NavBar />
@@ -22,7 +21,7 @@ const Home: React.FC = () => {
                   key={index}
                 >
                   <img src={each.url} alt={"me"} />
-                  <p>{each.tag}</p>
+                  <p>{each.tags}</p>
                 </li>
               );
             })}

@@ -5,7 +5,7 @@ import { BsFillFileEarmarkDiffFill } from "react-icons/bs";
 import Loading from "./Loading";
 
 const DragandDrop = () => {
-  const { files, setFiles, handleDrop, handleUpload, showUPloadBox, loading } =
+  const { files, setFiles, handleDrop, handleUpload, showUploadBox, loading } =
     useGlobalContext();
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -15,15 +15,13 @@ const DragandDrop = () => {
 
   if (files.length > 0)
     return (
-      <div className={`wedge ${showUPloadBox ? "" : "hidden"}`}>
+      <div className={`wedge ${showUploadBox ? "" : "hidden"}`}>
         <div className="dropcontainer">
           <ul>
             {Array.from(files).map((file, idx) => (
               <li key={idx}>
                 <BsFillFileEarmarkDiffFill />
                 {file.name}
-                {loading ? <Loading /> : ""}
-                {loading ? "uploadiingFile" : ""}
               </li>
             ))}
           </ul>

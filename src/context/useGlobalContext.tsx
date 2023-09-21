@@ -38,7 +38,6 @@ type ContextValue = {
   loading: boolean;
   setLoading: React.Dispatch<SetStateAction<boolean>>;
   setSearchValue: React.Dispatch<React.SetStateAction<string>>;
-  handleDrop: React.DragEventHandler<HTMLDivElement>;
   handleUpload: () => void;
   error: boolean;
   setError: React.Dispatch<SetStateAction<boolean>>;
@@ -56,7 +55,6 @@ const AppContext = createContext<ContextValue>({
   loading: true,
   setLoading: () => {},
   setSearchValue: () => {},
-  handleDrop: () => {},
   handleUpload: () => {},
   error: false,
   setError: () => {},
@@ -172,7 +170,6 @@ const AppProvider = ({ children }: AppProviderProps) => {
     error,
     setError,
     setSearchValue,
-    handleDrop: (event) => {},
     handleUpload,
     showUploadBox,
     setShowUploadBox,

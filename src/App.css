@@ -22,15 +22,17 @@
   align-items: center;
   height: 80vh;
 }
-ul {
+
+ul,
+ul div {
   height: fit-content;
   display: flex;
   justify-content: center;
-  items-center: center;
+  align-items: center;
   flex-wrap: wrap;
   flex: 1;
-  width: inherit;
-  gap: 10px;
+  width: 100%;
+  gap: 17px;
 }
 
 li {
@@ -73,18 +75,18 @@ form h1 {
   padding: 15px;
 }
 
-.submit{
+.submit {
   border-radius: 10px;
-  background-color:rgb(130, 184, 255);
-  cursor:pointer;
+  background-color: rgb(130, 184, 255);
+  cursor: pointer;
 }
 
-.error{
+.error {
   height: 8px;
   color: red;
 }
 
-form p{
+form p {
   padding: 18px 5px;
 }
 
@@ -94,7 +96,7 @@ input {
 }
 
 @media (max-width: 650px) {
-  form{
+  form {
     width: 350px;
   }
 }

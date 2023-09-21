@@ -9,18 +9,14 @@ interface DragBoxPropsType {
 
 // eslint-disable-next-line react/prop-types
 const DragBox: React.FC<DragBoxPropsType> = ({
-  handleDragOver,
-  handleDrop,
   setFiles,
   inputRef,
 }) => {
-  const { showUPloadBox, } = useGlobalContext();
+  const { showUploadBox, } = useGlobalContext();
   return (
-    <div className={`wedge ${showUPloadBox ? "" : "hidden"}`}>
+    <div className={`wedge ${showUploadBox ? "" : "hidden"}`}>
       <div
         className="dropcontainer"
-        onDragOver={handleDragOver}
-        onDrop={handleDrop}
       >
         <h2>Drag and Drop Files to Upload</h2>
         <h2>Or</h2>
