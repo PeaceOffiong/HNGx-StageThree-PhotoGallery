@@ -2,16 +2,12 @@ import { useRef } from "react";
 import { DragBox } from "../components";
 import { useGlobalContext } from "../context/useGlobalContext";
 import { BsFillFileEarmarkDiffFill } from "react-icons/bs";
-import Loading from "./Loading";
 
 const DragandDrop = () => {
-  const { files, setFiles, handleDrop, handleUpload, showUploadBox, loading } =
+  const { files, setFiles, handleUpload, showUploadBox,  } =
     useGlobalContext();
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleDragOver: React.DragEventHandler<HTMLDivElement> = (event) => {
-    event.preventDefault();
-  };
 
   if (files.length > 0)
     return (
@@ -36,8 +32,6 @@ const DragandDrop = () => {
   return (
     <>
       <DragBox
-        handleDragOver={handleDragOver}
-        handleDrop={handleDrop}
         setFiles={setFiles}
         inputRef={inputRef}
       />
