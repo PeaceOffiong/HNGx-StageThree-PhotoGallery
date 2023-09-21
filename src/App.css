@@ -60,8 +60,41 @@ li img {
 form {
   height: 450px;
   width: 450px;
+  border: 2px solid rgb(197, 196, 196);
   display: flex;
   text-align: center;
   flex-direction: column;
-  gap: 9px;
+  gap: 18px;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+form h1 {
+  padding: 15px;
+}
+
+.submit{
+  border-radius: 10px;
+  background-color:rgb(130, 184, 255);
+  cursor:pointer;
+}
+
+.error{
+  height: 8px;
+  color: red;
+}
+
+form p{
+  padding: 18px 5px;
+}
+
+input {
+  height: 39px;
+  padding: 10px;
+}
+
+@media (max-width: 650px) {
+  form{
+    width: 350px;
+  }
 }
