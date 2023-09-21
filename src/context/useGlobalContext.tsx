@@ -130,7 +130,7 @@ const AppProvider = ({ children }: AppProviderProps) => {
           .then((url) => {
             const newMetadata = {
               customMetadata: {
-                tags: ["Cartoon"],
+                tags: ["cars"],
               },
             };
 

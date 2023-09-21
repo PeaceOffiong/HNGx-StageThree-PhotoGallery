@@ -25,6 +25,8 @@
 ul {
   height: fit-content;
   display: flex;
+  justify-content: center;
+  items-center: center;
   flex-wrap: wrap;
   flex: 1;
   width: inherit;
@@ -32,8 +34,8 @@ ul {
 }
 
 li {
-  height: 250px;
-  width: 250px;
+  height: 200px;
+  width: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
