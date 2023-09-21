@@ -1,12 +1,11 @@
 import { DragandDrop, NavBar } from "../components";
 import { useGlobalContext } from "../context/useGlobalContext";
 import Loading from "./Loading";
-import { useRef } from "react";
 import {ReactSortable} from "react-sortablejs";
 
 const Home: React.FC = () => {
   const { loading, imageList, setImageList } = useGlobalContext();
-
+  console.log(imageList);
   return (
     <main className="center">
       <NavBar />

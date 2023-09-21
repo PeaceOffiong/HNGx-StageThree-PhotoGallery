@@ -1,8 +1,7 @@
 import { useGlobalContext } from "../context/useGlobalContext";
 
 const NavBar: React.FC = () => {
-  const {  searchValue, setSearchValue, setShowUploadBox } =
-    useGlobalContext();
+  const { searchValue, handleInputChange, setShowUploadBox } = useGlobalContext();
 
   return (
     <nav>
@@ -13,13 +12,13 @@ const NavBar: React.FC = () => {
           </h1>
         </div>
         <div className="laterFix">
-          <input
-            type="text"
-            name=""
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            className="searchBar"
-          />
+        <input
+        type="text"
+        name=""
+        value={searchValue}
+        onChange={handleInputChange}
+        className="searchBar"
+      />
         </div>
       </div>
       <div className="left">

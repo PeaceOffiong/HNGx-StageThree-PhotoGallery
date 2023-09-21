@@ -8,7 +8,6 @@ const DragandDrop = () => {
   const { files, setFiles, handleDrop, handleUpload, showUPloadBox, loading } =
     useGlobalContext();
   const inputRef = useRef<HTMLInputElement>(null);
-  console.log(files);
 
   const handleDragOver: React.DragEventHandler<HTMLDivElement> = (event) => {
     event.preventDefault();

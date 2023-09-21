@@ -1,4 +1,5 @@
-import {
+// File: AppProvider.js
+import React, {
   createContext,
   ReactNode,
   useContext,
@@ -16,9 +17,15 @@ import {
 } from "firebase/storage";
 import { v4 } from "uuid";
 import { storage } from "../firebase/firebase";
+import { filterImagesByTag } from "../libs/getFilteredImages";
 
 type AppProviderProps = {
   children: ReactNode;
+};
+
+export type imageListType = {
+  url: string;
+  tags: string;
 };
 
 type ContextValue = {
@@ -34,13 +41,9 @@ type ContextValue = {
   handleUpload: () => void;
   error: boolean;
   setError: React.Dispatch<SetStateAction<boolean>>;
-  showUPloadBox: boolean;
+  showUploadBox: boolean;
   setShowUploadBox: React.Dispatch<SetStateAction<boolean>>;
-};
-
-type imageListType = {
-  url: string;
-  tag: [];
+  handleInputChange: React.ChangeEventHandler<HTMLInputElement>;
 };
 
 const AppContext = createContext<ContextValue>({
@@ -56,8 +59,9 @@ const AppContext = createContext<ContextValue>({
   handleUpload: () => {},
   error: false,
   setError: () => {},
-  showUPloadBox: false,
+  showUploadBox: false,
   setShowUploadBox: () => {},
+  handleInputChange: () => {},
 });
 
 const AppProvider = ({ children }: AppProviderProps) => {
@@ -65,9 +69,9 @@ const AppProvider = ({ children }: AppProviderProps) => {
   const [files, setFiles] = useState<File[] | null>(null);
   const [imageList, setImageList] = useState<imageListType[]>([]);
   const [searchValue, setSearchValue] = useState<string>("");
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<boolean>(false);
   const ImagesRef = ref(storage, `images/`);
-  const [showUPloadBox, setShowUploadBox] = useState<boolean>(false);
+  const [showUploadBox, setShowUploadBox] = useState<boolean>(false);
 
   const getGallery = () => {
     setLoading(true);
@@ -80,7 +84,6 @@ const AppProvider = ({ children }: AppProviderProps) => {
           const eachRef = ref(storage, item._location.path_);
           return getDownloadURL(item).then((url) => {
             return getMetadata(eachRef).then((metaData) => {
-              console.log(metaData);
               const tags = metaData?.customMetadata?.tags || [];
               const imageData = {
                 url,
@@ -103,20 +106,22 @@ const AppProvider = ({ children }: AppProviderProps) => {
         setLoading(false);
       });
   };
-  console.log(loading);
-
-  console.log(imageList);
 
   useEffect(() => {
     getGallery();
   }, []);
 
-  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
+  const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    const newInputValue = e.target.value;
+    setSearchValue(newInputValue);
 
-    const filesArray = Array.from(event.dataTransfer.files);
-    console.log(event);
-    setFiles(filesArray);
+    const filteredImages = filterImagesByTag({
+      inputValue: newInputValue,
+      imageArray: imageList,
+    });
+    console.log(filteredImages);
+
+    setImageList(filteredImages);
   };
 
   const handleUpload = () => {
@@ -130,7 +135,7 @@ const AppProvider = ({ children }: AppProviderProps) => {
           .then((url) => {
             const newMetadata = {
               customMetadata: {
-                tags: ["cars"],
+                tags: ["nature"],
               },
             };
 
@@ -141,7 +146,7 @@ const AppProvider = ({ children }: AppProviderProps) => {
               .then(() => {
                 getMetadata(ImageRef).then((metaData) => {
                   const tags = metaData?.customMetadata?.tags || [];
-                  setImageList((prev) => [...prev, { url, tags: tags }]);
+                  setImageList((prev) => [...prev, { url, tags }]);
                 });
               });
           })
@@ -164,11 +169,13 @@ const AppProvider = ({ children }: AppProviderProps) => {
     error,
     setError,
     setSearchValue,
-    handleDrop,
+    handleDrop: (event) => {},
     handleUpload,
-    showUPloadBox,
+    showUploadBox,
     setShowUploadBox,
+    handleInputChange,
   };
+
   return (
     <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>
   );
