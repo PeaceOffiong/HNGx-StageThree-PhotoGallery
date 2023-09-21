@@ -10,7 +10,6 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  overflow-x: hidden;
 }
 
 body {
@@ -22,18 +21,18 @@ body {
   font-size: 20px;
 }
 
-.wedge{
-  position:fixed;
+.wedge {
+  position: fixed;
   right: 0px;
-  top:95px;
+  top: 95px;
   left: 0px;
   display: flex;
-  align-items:center;
+  align-items: center;
   justify-content: center;
 }
 
-.hidden{
-  display:none;
+.hidden {
+  display: none;
 }
 
 .dropcontainer {
@@ -104,25 +103,26 @@ nav {
   flex-direction: column;
 }
 
+.middle{
+  height: 100%;
+}
 .middle {
   padding: 35px 0;
-  width: 70%;
+  width: 80%;
 }
 
 @media (max-width: 650px) {
   .laterFix {
     position: absolute;
-    top: 100px;
-    left: 50%;
-    right: 50%;
-    height: 40px;
-  }
-  .middle {
-    padding-top: 65px;
+    top:100px;
+    /* left: 50%;
+    right:50%; */
+    z-index: -20;
   }
 
   .searchBar {
-    transform: translate(-50%);
+    /* transform: translate(-50%); */
+    z-index: 10;
   }
 
   li {

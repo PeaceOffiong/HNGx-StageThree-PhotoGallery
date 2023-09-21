@@ -34,7 +34,7 @@ type ContextValue = {
   handleUpload: () => void;
   error: boolean;
   setError: React.Dispatch<SetStateAction<boolean>>;
-  showUPloadBox:boolean;
+  showUPloadBox: boolean;
   setShowUploadBox: React.Dispatch<SetStateAction<boolean>>;
 };
 
@@ -57,7 +57,7 @@ const AppContext = createContext<ContextValue>({
   error: false,
   setError: () => {},
   showUPloadBox: false,
-  setShowUploadBox: () => {}
+  setShowUploadBox: () => {},
 });
 
 const AppProvider = ({ children }: AppProviderProps) => {
@@ -70,7 +70,7 @@ const AppProvider = ({ children }: AppProviderProps) => {
   const [showUPloadBox, setShowUploadBox] = useState<boolean>(false);
 
   const getGallery = () => {
-    setLoading(true); // Assuming you have loading and error state variables.
+    setLoading(true);
     setError(false);
     const imageDataArray: imageListType[] = [];
 
@@ -84,7 +84,7 @@ const AppProvider = ({ children }: AppProviderProps) => {
               const tags = metaData?.customMetadata?.tags || [];
               const imageData = {
                 url,
-                tags
+                tags,
               };
               imageDataArray.push(imageData);
             });
@@ -120,22 +120,35 @@ const AppProvider = ({ children }: AppProviderProps) => {
   };
 
   const handleUpload = () => {
-    console.log("clicked");
+    setLoading(true);
     if (files === null) return;
 
     files.forEach((file) => {
       const ImageRef = ref(storage, `images/${file.name + v4()}`);
       uploadBytes(ImageRef, file).then((snapshot) => {
-        getDownloadURL(snapshot.ref).then((url) => {
-          const newMetadata = {
-            customMetadata: {
-              'tags': ['nature'],
-            }
-          };
-          updateMetadata(ImageRef, newMetadata).then(() => {
-            console.log("Metadata updated successfully.");
+        getDownloadURL(snapshot.ref)
+          .then((url) => {
+            const newMetadata = {
+              customMetadata: {
+                tags: ["Cartoon"],
+              },
+            };
+
+            updateMetadata(ImageRef, newMetadata)
+              .then(() => {
+                console.log("Metadata updated successfully.");
+              })
+              .then(() => {
+                getMetadata(ImageRef).then((metaData) => {
+                  const tags = metaData?.customMetadata?.tags || [];
+                  setImageList((prev) => [...prev, { url, tags: tags }]);
+                });
+              });
+          })
+          .finally(() => {
+            setShowUploadBox(false);
+            setLoading(false);
           });
-        }).then(() => setShowUploadBox(false));
       });
     });
   };
@@ -154,7 +167,7 @@ const AppProvider = ({ children }: AppProviderProps) => {
     handleDrop,
     handleUpload,
     showUPloadBox,
-    setShowUploadBox
+    setShowUploadBox,
   };
   return (
     <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>
