@@ -1,4 +1,5 @@
 import { useGlobalContext } from "../context/useGlobalContext";
+import {BsSearch} from "react-icons/bs"
 
 const NavBar: React.FC = () => {
   const { searchValue, handleInputChange, setShowUploadBox } = useGlobalContext();
@@ -19,6 +20,7 @@ const NavBar: React.FC = () => {
         onChange={handleInputChange}
         className="searchBar"
       />
+      <BsSearch/>
         </div>
       </div>
       <div className="left">

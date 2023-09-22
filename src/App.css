@@ -32,7 +32,8 @@ ul div {
   flex-wrap: wrap;
   flex: 1;
   width: 100%;
-  gap: 17px;
+  gap: 20px;
+  padding-top: 15px;
 }
 
 li {
@@ -98,5 +99,9 @@ input {
 @media (max-width: 650px) {
   form {
     width: 350px;
+  }
+  li {
+    width: 150px;
+    height: 150px;
   }
 }
