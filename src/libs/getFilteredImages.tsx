@@ -9,6 +9,7 @@ export const filterImagesByTag = ({
   inputValue,
   imageArray,
 }: FilterImagesByTagProps): imageListType[] => {
+  
   if (inputValue.trim() === "") {
     return imageArray;
   }

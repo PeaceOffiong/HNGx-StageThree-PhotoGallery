@@ -1,4 +1,3 @@
-
 import React, {
   createContext,
   ReactNode,
@@ -18,7 +17,6 @@ import {
 import { v4 } from "uuid";
 import { storage } from "../firebase/firebase";
 import { filterImagesByTag } from "../libs/getFilteredImages";
-
 
 type AppProviderProps = {
   children: ReactNode;
@@ -71,6 +69,7 @@ const AppProvider = ({ children }: AppProviderProps) => {
   const [error, setError] = useState<boolean>(false);
   const ImagesRef = ref(storage, `images/`);
   const [showUploadBox, setShowUploadBox] = useState<boolean>(false);
+  const [tempImageList, setTempImageList] = useState<imageListType[]>([]);
 
   const getGallery = () => {
     setLoading(true);
@@ -90,7 +89,7 @@ const AppProvider = ({ children }: AppProviderProps) => {
                 url,
                 tags,
               };
-              
+
               imageDataArray.push(imageData);
             });
           });
@@ -99,6 +98,7 @@ const AppProvider = ({ children }: AppProviderProps) => {
       })
       .then(() => {
         setImageList(imageDataArray);
+        setTempImageList(imageDataArray);
       })
       .catch((error) => {
         console.log(error);
@@ -108,8 +108,6 @@ const AppProvider = ({ children }: AppProviderProps) => {
         setLoading(false);
       });
   };
-
-
 
   useEffect(() => {
     getGallery();
@@ -121,7 +119,7 @@ const AppProvider = ({ children }: AppProviderProps) => {
 
     const filteredImages = filterImagesByTag({
       inputValue: newInputValue,
-      imageArray: imageList,
+      imageArray: tempImageList,
     });
     console.log(filteredImages);
 
@@ -153,6 +151,8 @@ const AppProvider = ({ children }: AppProviderProps) => {
                   const tags = metaData?.customMetadata?.tags || [];
                   // @ts-ignore
                   setImageList((prev) => [...prev, { url, tags }]);
+                  // @ts-ignore
+                  setTempImageList((prev) => [...prev, { url, tags }]);
                 });
               });
           })
